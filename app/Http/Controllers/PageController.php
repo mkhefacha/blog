@@ -73,8 +73,8 @@ class PageController extends Controller
     public function admin()
     {
         $users = User::all();
-        $roles = Role::all();
-        return view('adminv', compact('users', 'roles'));
+
+        return view('adminv', compact('users'));
     }
 
 
@@ -84,31 +84,28 @@ class PageController extends Controller
 
 
         $usersID = $request->get('users_id');
-        $admins = $request->get('role_admin');
-        $editors = $request->get('role_editor');
-        $users = $request->get('role_user');
+        $admins = $request->get('roles_admin');
+        $editors = $request->get('roles_editor');
+        $users = $request->get('roles_user');
 
-
-        //$user->roles()->detach();
 
         foreach ($usersID as $id) {
-            $user = User::where('id', $usersID)->first();
+            $user = User::where('id', $id)->first();
+            $user->roles()->detach();
 
             if ($users && in_array($id, $users)) {
-                $user->roles()->attach(Role::where('name', 'user')->first());
+                $user->roles()->attach(Role::role_user());
             }
             if ($admins && in_array($id, $admins)) {
-                $user->roles()->attach(Role::where('name', 'admin')->first());
+                $user->roles()->attach(Role::role_admin());
             }
             if ($editors && in_array($id, $editors)) {
-                $user->roles()->attach(Role::where('name', 'editor')->first());
+                $user->roles()->attach(Role::role_editor());
             }
 
         }
 
-
-        return redirect()->back();
-
+        return back();
     }
 
 
@@ -125,19 +122,20 @@ class PageController extends Controller
     }
 
 
-    //public function uplodfile(Request $request)
+    public function uplodfile(Request $request){
 
     // return $request->file('photo')->store('photos');
     // dd($path);
     // cache the file
 
-    /* $file = Image::create([
+
+     $file = Image::create([
          'photo' => $request->file('photo')->store('photos')
      ]);
      return redirect()->back();
 
  }
-*/
+
 
     public function show()
     {
