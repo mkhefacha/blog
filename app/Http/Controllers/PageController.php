@@ -88,9 +88,11 @@ class PageController extends Controller
         $editors = $request->get('role_editor');
         $users = $request->get('role_user');
 
+
+        //$user->roles()->detach();
+
         foreach ($usersID as $id) {
-            $user = User::where('id', $id)->first();
-            $user->roles()->detach();
+            $user = User::where('id', $usersID)->first();
 
             if ($users && in_array($id, $users)) {
                 $user->roles()->attach(Role::where('name', 'user')->first());

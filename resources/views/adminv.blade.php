@@ -4,7 +4,7 @@
     <div class="container">
         <h4>admin panel</h4>
 
-        {!! Form::open(['url' => '/add'],['method'=>'post']) !!}
+        {!! Form::open(['url' => '/add' , 'method'=>'post']) !!}
         {!! Form::token() !!}
 
         <table class="table">
