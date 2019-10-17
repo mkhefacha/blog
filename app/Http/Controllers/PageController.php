@@ -82,6 +82,7 @@ class PageController extends Controller
 
     {
 
+
         $usersID = $request->get('users_id');
         $admins = $request->get('role_admin');
         $editors = $request->get('role_editor');
@@ -89,8 +90,6 @@ class PageController extends Controller
 
         foreach ($usersID as $id) {
             $user = User::where('id', $id)->first();
-
-
             $user->roles()->detach();
 
             if ($users && in_array($id, $users)) {
@@ -111,8 +110,7 @@ class PageController extends Controller
     }
 
 
-    public
-    function editor()
+    public function editor()
     {
 
         return view('editorv');
@@ -124,24 +122,28 @@ class PageController extends Controller
         return view('welcome');
     }
 
-    public function uplodfile(Request $request)
-    {
-        // return $request->file('photo')->store('photos');
 
-       $file = Image::create([
-            'photo' => $request->file('photo')->store('photos')
-        ]);
-        return redirect()->back();
+    //public function uplodfile(Request $request)
+
+    // return $request->file('photo')->store('photos');
+    // dd($path);
+    // cache the file
+
+    /* $file = Image::create([
+         'photo' => $request->file('photo')->store('photos')
+     ]);
+     return redirect()->back();
+
+ }
+*/
+
+    public function show()
+    {
+
+        $file = Image::all();
+        return view('info', compact('file'));
 
     }
-
-
-       public  function  show(){
-
-        $file=Image::all();
-        return view('info',compact('file'));
-
-       }
 
 
 }

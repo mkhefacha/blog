@@ -2,11 +2,11 @@
 @section('content')
 
     <div class="container">
-        <h4>admin panel</h4>            
-           <form method="post" action="/update" >
-                 {!! Form::open(['url' => '/add']) !!}
-                  {!! Form::token() !!}
-       
+        <h4>admin panel</h4>
+
+        {!! Form::open(['url' => '/add'],['method'=>'post']) !!}
+        {!! Form::token() !!}
+
         <table class="table">
             <thead class="thead-dark">
             <tr>
@@ -16,44 +16,46 @@
                 <th scope="col">User</th>
                 <th scope="col">Editor</th>
                 <th scope="col">Admin</th>
-            
-               
+
+
             </tr>
             </thead>
-          <tbody>
+            <tbody>
             @foreach($users as $user)
-                <input type="hidden" name="id_user[]" value="{{$user->id}}">
-               {!! Form::hidden('id_user[]', $user->id !!}
 
+                {!! Form::hidden('users_id[]', $user->id )!!}
 
                 <tr>
-                
-                                     
+
+
                     <th scope="row">{{$user->id}}</th>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
-                    
-             <td> 
-             <input type="checkbox"  name="roles_user[]" value="{{$roles->id}}" {{$user->hasRole('user') ? 'checked' : ' '}}> 
-             {!! Form::checkbox('roles_user[]', $roles->id, true) !!};
- 
-             </td>
+
                     <td>
-                <input type="checkbox" name="role_editor[]" value="{{$roles->id}}" {{$user->hasRole('editor') ? 'checked' : ' '}}>
+                        {!! Form::checkbox('roles_user[]', $user->id , $user->hasRole('user') ? '1': '0') !!}
+
                     </td>
                     <td>
-                        <input type="checkbox" name="role_admin[]" value="{{$roles->id}}" {{$user->hasRole('admin') ? 'checked' : ' '}}>
-                    </td>  
+
+                        {!! Form::checkbox('roles_editor[]', $user->id, $user->hasRole('editor') ? '1': '0' ) !!}
+
+                    </td>
+
+                    <td>
+
+                        {!! Form::checkbox('roles_admin[]', $user->id, $user->hasRole('admin') ? '1': '0' ) !!}
+                    </td>
                 </tr>
-             
-        @endforeach
-          </tbody>
+
+            @endforeach
+            </tbody>
         </table>
-              echo Form::submit('save');
-                          <button type="submit" class="btn btn-primary">update</button>
-            
-                    </form> 
-        
+
+        {!! Form::submit('save',['class' =>'btn btn-primary']) !!}
+
+       {!! form::close()!!}
+
 
     </div>
 
