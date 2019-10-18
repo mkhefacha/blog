@@ -6,7 +6,7 @@ use App\Image;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\RequestForm;
 class PageController extends Controller
 {
     public function posts()
@@ -22,19 +22,10 @@ class PageController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(RequestForm $form)
     {
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
 
-        $user->save();
-// add role;
-        $user->roles()->attach(Role::where('name', 'user')->first());
-
-        //login
-        auth()->login($user);
+        $form->persist();
 
         return redirect('/post');
 
