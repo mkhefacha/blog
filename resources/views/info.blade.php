@@ -2,7 +2,11 @@
 @section('content')
     <div class="container">
 
-
+         @if ($flash=session('message'))
+             <div class="alert alert-success">
+                 {{$flash}}
+             </div>
+              @endif
          @foreach($file as $file)
 
 

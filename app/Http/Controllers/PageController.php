@@ -7,6 +7,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RequestForm;
+use session;
 class PageController extends Controller
 {
     public function posts()
@@ -27,6 +28,7 @@ class PageController extends Controller
 
         $form->persist();
 
+          session()->flash('message','saved successfull');
         return redirect('/post');
 
     }
