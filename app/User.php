@@ -46,7 +46,7 @@ class User extends Authenticatable
     public function hasAnyRole($roles)
     {
 
-        if (is_array($roles)) { //is_array: verifier si il a plus q'un role
+        if (is_array($roles)) { //is_array: verifier si il a plus q'un role(si il a ds un tab[])
 
             foreach ($roles as $role) {
                 if ($this->hasRole($role)) {

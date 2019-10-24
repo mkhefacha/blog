@@ -20,8 +20,8 @@ class CheckRole
 
             return redirect('/post');
         }
-        $actions = $request->route()->getAction();
-        $roles = isset($actions['roles']) ? $actions['roles'] : null;
+        $actions = $request->route()->getAction();//get l'action de la route
+        $roles = isset($actions['roles']) ? $actions['roles'] : null; //verifier le role de user dans la route
 
         if($request->user()->hasAnyRole($roles) || !$roles)
         {

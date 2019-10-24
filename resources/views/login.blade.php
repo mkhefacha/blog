@@ -5,7 +5,7 @@
         @if(session()->get('danger'))
             <div class="alert alert-danger">
                 {{ session()->get('danger') }}
-            </div><br />
+            </div><br/>
         @endif
 
 
@@ -20,15 +20,11 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input  type="password" class="form-control"  name="password" placeholder="Password">
+                <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
 
             <button type="submit" class="btn btn-primary">save</button>
         </form>
-
-
-
-
 
 
     </div>

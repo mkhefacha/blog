@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Requests;
+use App\Mail\welcome;
 use App\Role;
 use App\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class RequestForm extends FormRequest
 {
@@ -17,7 +20,7 @@ class RequestForm extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => 'required',
 
         ];
@@ -34,11 +37,12 @@ class RequestForm extends FormRequest
         ]);
 
 
+
         $user->roles()->attach(Role::where('name', 'user')->first());
 
         //login
         auth()->login($user);
-
+        Mail::to($user)->send(new welcome($user));
     }
 }
 
