@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -228,6 +229,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
       'Html' => Collective\Html\HtmlFacade::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
     ],
 

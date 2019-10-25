@@ -17,6 +17,10 @@ use App\User_Role;
 
 class PageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 
     public function posts()
@@ -216,13 +220,26 @@ class PageController extends Controller
     }
 
 
+
+
+
     public function postcontact(Request $request)
     {
+
+
+        $data=$request->validate([
+            'email' => 'required',
+            'message' => 'required',
+            'subject' => 'required',
+            'captcha' => 'required|captcha',
+        ]);
+
         $data = array(
             'email' => $request->email,
             'subject' => $request->subject,
             'Bodymessage' => $request->message
         );
+
         Mail::send('emails', $data, function ($message) use ($data) {
 
             $message->from($data['email']);
@@ -234,6 +251,11 @@ class PageController extends Controller
         return redirect()->back();
 
 
+    }
+
+    public function  refreshcaptcha(){
+
+        return captcha_img('math');
     }
 
 

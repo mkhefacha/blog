@@ -13,8 +13,8 @@
 
     <title>blog</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+   <!--Scripts-->
+ <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>
 
     <!-- Fonts -->
@@ -30,13 +30,15 @@
 <body>
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-       @auth
-        <a class="navbar-brand" href="{{url('/users')}}">{{auth()->user()->name}}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-@endauth
+        @auth
+
+                <a class="navbar-brand" href="#">{{auth()->user()->name}}</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+        @endauth
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -85,5 +87,23 @@
         </div>
     </main>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $('.btn_refresh').click(function () {
+ $.ajax({
+     type:'GET',
+     url:'{{url('/refreshcaptcha')}}',
+      success:function (data) {
+          $('.captcha span').html(data);
+     }
+
+ })
+
+        });
+        });
+</script>
 </body>
 </html>

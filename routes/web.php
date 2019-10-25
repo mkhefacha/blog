@@ -43,6 +43,8 @@ Route::post('/uplod','PageController@uplodfile');
 Route::get('/downlodfile/{id}' , 'PageController@downfile')->name('downlodfile');
 Route::get('/post','PageController@show');
 
+Route::get('/refreshcaptcha','PageController@refreshcaptcha')->name('refresh');
+
 Route::get('/contact','PageController@showcontact');
 Route::post('/contact', 'PageController@postcontact')->name('contact');
 //test premission
